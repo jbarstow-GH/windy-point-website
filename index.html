@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Windy Point Park — Lake Travis, Austin TX | A 50-Year Legacy</title>
+  <meta name="description" content="Windy Point Park on Lake Travis, Austin TX — 50 years of camping, scuba diving, boating, swimming, and unforgettable sunsets. A Barstow family legacy. Now seeking a visionary lessee to carry it forward." />
+  <meta name="keywords" content="Windy Point Park, Dive, Scuba, Recreation, Park, Lake Travis, Austin TX, LCRA, Travis County, Barstow, Camp, Picnic, Swim, Venue, Lease" />
+
+  <!-- Favicon via SVG data URI -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>" />
+
+  <!-- Google Fonts: Playfair Display + Inter + Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Weather Widget Script -->
+  <script type='text/javascript' src='https://weatherwidget.org/js/widget.min.js'></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'lake-deep':   '#1B3A52',
+            'lake-teal':   '#2E8B8B',
+            'lake-mid':    '#3A7CA5',
+            'sand':        '#D4A855',
+            'dusk':        '#C97B3A',
+            'cream':       '#F7F3ED',
+            'stone':       '#6B7B6E',
+            'bark':        '#4A3728',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            body:    ['Inter', 'system-ui', 'sans-serif'],
+            hand:    ['Caveat', 'cursive'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ── Base ── */
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #F7F3ED; color: #1B3A52; }
+
+    /* ── Waterline divider (signature element) ── */
+    .waterline { width: 100%; overflow: hidden; line-height: 0; }
+    .waterline svg { display: block; width: 100%; }
+
+    /* ── Nav ── */
+    #site-nav { transition: background 0.35s, box-shadow 0.35s; }
+    #site-nav.scrolled { background: rgba(27,58,82,0.97); box-shadow: 0 2px 24px rgba(0,0,0,0.25); }
+
+    /* ── Hero ── */
+    .hero-bg {
+      position: relative;
+      min-height: 100svh;
+      background: linear-gradient(to bottom, rgba(27,58,82,0.55) 0%, rgba(27,58,82,0.3) 50%, rgba(27,58,82,0.75) 100%),
+                  url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=80&fit=crop') center/cover no-repeat;
+    }
+
+    /* ── Section transitions ── */
+    .fade-in { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Timeline ── */
+    .timeline-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #2E8B8B, #D4A855); transform: translateX(-50%); }
+    @media (max-width: 768px) { .timeline-line { left: 1.5rem; } }
+
+    /* ── Lightbox ── */
+    #lightbox-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: rgba(10,20,30,0.93);
+      display: none; align-items: center; justify-content: center;
+      flex-direction: column;
+    }
+    #lightbox-overlay.open { display: flex; }
+    #lightbox-img { max-height: 70vh; max-width: 90vw; object-fit: contain; border-radius: 1rem; box-shadow: 0 8px 60px rgba(0,0,0,0.6); }
+    .lb-arrow { background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 2rem; padding: 0.75rem 1.25rem; border-radius: 0.75rem; cursor: pointer; transition: background 0.2s; }
+    .lb-arrow:hover, .lb-arrow:focus { background: rgba(46,139,139,0.7); outline: 2px solid #2E8B8B; }
+
+    /* ── Activity cards ── */
+    .activity-card { transition: transform 0.25s, box-shadow 0.25s; }
+    .activity-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(27,58,82,0.2); }
+
+    /* ── Album cards ── */
+    .album-card { cursor: pointer; transition: transform 0.25s, box-shadow 0.25s; }
+    .album-card:hover { transform: translateY(-5px); box-shadow: 0 14px 48px rgba(27,58,82,0.25); }
+
+    /* ── Form focus ── */
+    input:focus, textarea:focus, select:focus { outline: 2px solid #2E8B8B; outline-offset: 2px; }
+
+    /* ── Review stars ── */
+    .stars { color: #D4A855; }
+
+    /* ── Vault doc links ── */
+    .doc-link { transition: color 0.2s, border-color 0.2s; }
+    .doc-link:hover { color: #2E8B8B; border-color: #2E8B8B; }
+
+    /* ── Skip link ── */
+    .skip-link { position: absolute; left: -9999px; top: 1rem; background: #2E8B8B; color: #fff; padding: 0.5rem 1rem; border-radius: 0.5rem; z-index: 99999; font-weight: 600; }
+    .skip-link:focus { left: 1rem; }
+
+    /* Weather widget override */
+    .weather-widget-wrap a { color: #D4A855 !important; }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- Skip Navigation -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ═══════════════════════════════════════════
+       STICKY NAV
+  ════════════════════════════════════════════ -->
+  <nav id="site-nav" class="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4" aria-label="Main navigation">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="#hero" class="font-display text-white text-xl font-bold tracking-tight hover:text-sand transition-colors" aria-label="Windy Point Park Home">
+        🌊 Windy Point Park
+      </a>
+      <!-- Desktop nav -->
+      <ul class="hidden md:flex items-center gap-6 text-white/90 font-body text-sm font-medium" role="list">
+        <li><a href="#the-park" class="hover:text-sand transition-colors focus:outline-none focus:ring-2 focus:ring-sand rounded-sm px-1 py-0.5">The Park</a></li>
+        <li><a href="#memory-wall" class="hover:text-sand transition-colors focus:outline-none focus:ring-2 focus:ring-sand rounded-sm px-1 py-0.5">Memory Wall</a></li>
+        <li><a href="#our-story" class="hover:text-sand transition-colors focus:outline-none focus:ring-2 focus:ring-sand rounded-sm px-1 py-0.5">Our Story</a></li>
+        <li><a href="#the-vault" class="hover:text-sand transition-colors focus:outline-none focus:ring-2 focus:ring-sand rounded-sm px-1 py-0.5">The Vault</a></li>
+        <li>
+          <a href="#contact" class="bg-sand text-bark font-semibold px-4 py-2 rounded-full hover:bg-dusk hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white">
+            Lease Inquiry
+          </a>
+        </li>
+      </ul>
+      <!-- Mobile hamburger -->
+      <button id="nav-toggle" class="md:hidden text-white p-2 rounded-lg hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-sand" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div id="mobile-menu" class="md:hidden hidden mt-3 pb-3 border-t border-white/20" role="navigation" aria-label="Mobile navigation">
+      <ul class="flex flex-col gap-1 pt-3 px-2" role="list">
+        <li><a href="#the-park" class="block text-white/90 hover:text-sand py-2 px-3 rounded-lg hover:bg-white/10 transition-colors font-medium">The Park</a></li>
+        <li><a href="#memory-wall" class="block text-white/90 hover:text-sand py-2 px-3 rounded-lg hover:bg-white/10 transition-colors font-medium">Memory Wall</a></li>
+        <li><a href="#our-story" class="block text-white/90 hover:text-sand py-2 px-3 rounded-lg hover:bg-white/10 transition-colors font-medium">Our Story</a></li>
+        <li><a href="#the-vault" class="block text-white/90 hover:text-sand py-2 px-3 rounded-lg hover:bg-white/10 transition-colors font-medium">The Vault</a></li>
+        <li><a href="#contact" class="block text-sand font-semibold py-2 px-3 rounded-lg hover:bg-white/10 transition-colors">Lease Inquiry ↗</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       HERO HEADER
+  ════════════════════════════════════════════ -->
+  <header id="hero" class="hero-bg flex flex-col items-center justify-center text-center px-4 py-24 md:py-32" role="banner">
+    <div id="main-content" class="max-w-4xl mx-auto">
+      <div id="hero-eyebrow" class="inline-block bg-sand/20 border border-sand/40 text-sand font-hand text-lg px-5 py-2 rounded-full mb-6 backdrop-blur-sm"></div>
+      <h1 id="hero-headline" class="font-display text-white text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-6"></h1>
+      <p id="hero-intro" class="font-body text-white/85 text-base md:text-xl leading-relaxed max-w-2xl mx-auto mb-10"></p>
+      <div id="hero-ctas" class="flex flex-wrap gap-4 justify-center"></div>
+
+      <!-- Scroll cue -->
+      <div class="mt-16 flex flex-col items-center animate-bounce" aria-hidden="true">
+        <span class="text-white/50 text-xs font-body mb-2 uppercase tracking-widest">Scroll to explore</span>
+        <svg class="w-5 h-5 text-sand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- Waterline divider -->
+  <div class="waterline bg-lake-deep" aria-hidden="true">
+    <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,24 C120,44 240,4 360,24 C480,44 600,4 720,24 C840,44 960,4 1080,24 C1200,44 1320,4 1440,24 L1440,48 L0,48 Z" fill="#F7F3ED"/>
+    </svg>
+  </div>
+
+  <main>
+
+  <!-- ═══════════════════════════════════════════
+       THE PARK
+  ════════════════════════════════════════════ -->
+  <section id="the-park" class="py-20 px-4 bg-cream" aria-labelledby="park-heading">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-14 fade-in">
+        <p class="font-hand text-lake-teal text-2xl mb-2">Come on in —</p>
+        <h2 id="park-heading" class="font-display text-lake-deep text-4xl md:text-5xl font-bold mb-4">The water's fine.</h2>
+        <p class="font-body text-stone text-base md:text-lg max-w-2xl mx-auto">From the silence fifty feet under to the laughter of a family cookout — Windy Point has always been a place that knows how to make people feel at home on the water.</p>
+      </div>
+
+      <!-- Activity Grid — populated by JS -->
+      <div id="activity-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16"></div>
+
+      <!-- Conditions Bar -->
+      <div class="fade-in bg-lake-deep rounded-2xl p-6 md:p-8 mb-10">
+        <h3 class="font-display text-white text-2xl font-semibold mb-1">Live Lake Conditions</h3>
+        <p class="font-body text-white/60 text-sm mb-6">Plan your visit around real-time data. Lake Travis conditions change — always check before you go.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <a href="https://hydromet.lcra.org/home/GaugeDataList/?siteNumber=3963&siteType=wtemp" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-white/10 hover:bg-white/20 transition-colors rounded-xl p-4 text-white focus:outline-none focus:ring-2 focus:ring-sand" aria-label="Check water temperature (opens in new tab)">
+            <span class="text-2xl" aria-hidden="true">🌡️</span>
+            <div>
+              <div class="font-semibold text-sm">Water Temperature</div>
+              <div class="text-white/60 text-xs">LCRA Real-Time Gauge</div>
+            </div>
+            <svg class="w-4 h-4 ml-auto text-sand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+          <a href="https://www.lcra.org/download/lake-travis-projections/?wpdmdl=9373" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-white/10 hover:bg-white/20 transition-colors rounded-xl p-4 text-white focus:outline-none focus:ring-2 focus:ring-sand" aria-label="View lake level historical data (opens in new tab)">
+            <span class="text-2xl" aria-hidden="true">📊</span>
+            <div>
+              <div class="font-semibold text-sm">Lake Level & History</div>
+              <div class="text-white/60 text-xs">LCRA Travis Projections</div>
+            </div>
+            <svg class="w-4 h-4 ml-auto text-sand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+          <a href="https://www.windfinder.com/forecast/bob_wentz_windy_point_park_lake_travis" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-white/10 hover:bg-white/20 transition-colors rounded-xl p-4 text-white focus:outline-none focus:ring-2 focus:ring-sand" aria-label="Check wind forecast (opens in new tab)">
+            <span class="text-2xl" aria-hidden="true">💨</span>
+            <div>
+              <div class="font-semibold text-sm">Wind Forecast</div>
+              <div class="text-white/60 text-xs">Windfinder — Windy Point</div>
+            </div>
+            <svg class="w-4 h-4 ml-auto text-sand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+        </div>
+        <!-- Weather Widget -->
+        <div class="rounded-xl overflow-hidden weather-widget-wrap">
+          <a class="weatherwidget-io" href="https://forecast7.com/en/30d39n97d76/austin/" data-label_1="WINDY POINT PARK" data-label_2="LAKE TRAVIS" data-theme="original" data-basecolor="#1B3A52" data-textcolor="#F7F3ED" data-highcolor="#D4A855" data-lowcolor="#2E8B8B" data-suncolor="#D4A855" data-mooncolor="#3A7CA5" data-cloudcolor="#6B7B6E" data-cloudfill="#6B7B6E" data-raincolor="#2E8B8B" data-snowcolor="#F7F3ED">WINDY POINT PARK — LAKE TRAVIS</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Waterline divider -->
+  <div class="waterline bg-cream" aria-hidden="true">
+    <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,12 C180,40 360,0 540,20 C720,40 900,0 1080,20 C1260,40 1380,8 1440,16 L1440,48 L0,48 Z" fill="#EEF6F6"/>
+    </svg>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       MEMORY WALL
+  ════════════════════════════════════════════ -->
+  <section id="memory-wall" class="py-20 px-4 bg-[#EEF6F6]" aria-labelledby="memory-heading">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-14 fade-in">
+        <p class="font-hand text-dusk text-2xl mb-2">Fifty years of good days</p>
+        <h2 id="memory-heading" class="font-display text-lake-deep text-4xl md:text-5xl font-bold mb-4">The Memory Wall</h2>
+        <p class="font-body text-stone text-base md:text-lg max-w-2xl mx-auto">Every photograph, every review, every story — a chapter in something larger. Flip through the albums. Add your own story below.</p>
+      </div>
+
+      <!-- Album cards — populated by JS -->
+      <div id="album-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16" role="list"></div>
+
+      <!-- Reviews — populated by JS -->
+      <div class="mb-16 fade-in">
+        <h3 class="font-display text-lake-deep text-2xl font-semibold text-center mb-8">What visitors say</h3>
+        <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+      </div>
+
+      <!-- Guestbook Form -->
+      <div class="fade-in bg-white rounded-2xl shadow-lg p-8 md:p-12 max-w-2xl mx-auto">
+        <h3 class="font-display text-lake-deep text-2xl font-bold mb-2">Leave Your Story</h3>
+        <p class="font-body text-stone text-sm mb-6">Were you a regular? Caught your first fish here? Got your scuba certification in these waters? We'd love to hear it.</p>
+        <form id="guestbook-form" action="#" method="post" novalidate class="space-y-5">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label for="gb-name" class="block font-body text-lake-deep text-sm font-medium mb-1">Your Name <span class="text-dusk" aria-hidden="true">*</span></label>
+              <input type="text" id="gb-name" name="name" required autocomplete="name" placeholder="Jane Diver" class="w-full bg-cream border border-lake-deep/20 rounded-xl px-4 py-3 font-body text-lake-deep placeholder-stone/50 text-sm focus:border-lake-teal" />
+            </div>
+            <div>
+              <label for="gb-email" class="block font-body text-lake-deep text-sm font-medium mb-1">Email Address</label>
+              <input type="email" id="gb-email" name="email" autocomplete="email" placeholder="jane@example.com" class="w-full bg-cream border border-lake-deep/20 rounded-xl px-4 py-3 font-body text-lake-deep placeholder-stone/50 text-sm focus:border-lake-teal" />
+            </div>
+          </div>
+          <div>
+            <label for="gb-year" class="block font-body text-lake-deep text-sm font-medium mb-1">Year(s) you visited</label>
+            <input type="text" id="gb-year" name="year" placeholder="e.g. summers 1998–2010" class="w-full bg-cream border border-lake-deep/20 rounded-xl px-4 py-3 font-body text-lake-deep placeholder-stone/50 text-sm focus:border-lake-teal" />
+          </div>
+          <div>
+            <label for="gb-activity" class="block font-body text-lake-deep text-sm font-medium mb-1">What did you love most?</label>
+            <select id="gb-activity" name="activity" class="w-full bg-cream border border-lake-deep/20 rounded-xl px-4 py-3 font-body text-lake-deep text-sm focus:border-lake-teal">
+              <option value="">Choose an activity…</option>
+              <option>Scuba Diving</option>
+              <option>Camping</option>
+              <option>Picnicking</option>
+              <option>Boating</option>
+              <option>Swimming</option>
+              <option>A sunset (just the sunset)</option>
+              <option>Everything</option>
+            </select>
+          </div>
+          <div>
+            <label for="gb-story" class="block font-body text-lake-deep text-sm font-medium mb-1">Your Story <span class="text-dusk" aria-hidden="true">*</span></label>
+            <textarea id="gb-story" name="story" required rows="5" placeholder="Tell us what Windy Point means to you…" class="w-full bg-cream border border-lake-deep/20 rounded-xl px-4 py-3 font-body text-lake-deep placeholder-stone/50 text-sm focus:border-lake-teal resize-none"></textarea>
+          </div>
+          <div class="flex items-center gap-3">
+            <input type="checkbox" id="gb-permission" name="permission" class="w-4 h-4 rounded accent-lake-teal" />
+            <label for="gb-permission" class="font-body text-stone text-xs">I give permission for my story to be featured on this site.</label>
+          </div>
+          <button type="submit" class="w-full bg-lake-teal hover:bg-lake-deep text-white font-body font-semibold py-3 px-6 rounded-xl transition-colors focus:outline-none focus:ring-2 focus:ring-lake-teal focus:ring-offset-2">
+            Share My Memory →
+          </button>
+        </form>
+        <div id="guestbook-thanks" class="hidden text-center py-6">
+          <p class="font-hand text-3xl text-lake-teal mb-2">Thank you! 🌊</p>
+          <p class="font-body text-stone text-sm">Your story has been received. It belongs here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Waterline divider -->
+  <div class="waterline bg-[#EEF6F6]" aria-hidden="true">
+    <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,32 C200,8 400,42 600,18 C800,42 1000,6 1200,28 C1320,42 1400,16 1440,24 L1440,48 L0,48 Z" fill="#1B3A52"/>
+    </svg>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       OUR STORY — HERITAGE TIMELINE
+  ════════════════════════════════════════════ -->
+  <section id="our-story" class="py-20 px-4 bg-lake-deep" aria-labelledby="story-heading">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-16 fade-in">
+        <p class="font-hand text-sand text-2xl mb-2">A family, a shore, a half-century</p>
+        <h2 id="story-heading" class="font-display text-white text-4xl md:text-5xl font-bold mb-6">Our Story</h2>
+        <p class="font-body text-white/70 text-base md:text-lg max-w-2xl mx-auto">In 1974, Bob Barstow looked out across Lake Travis and saw possibility. He saw a place where Austin families could breathe — where weekends could taste like something worth remembering. Fifty years later, that vision never left.</p>
+      </div>
+
+      <!-- Founders Portrait -->
+      <div class="fade-in flex flex-col md:flex-row items-center gap-8 bg-white/5 rounded-2xl p-6 md:p-10 mb-16 border border-white/10">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80&fit=crop&crop=face" alt="Portrait representing founder Bob Barstow" class="w-40 h-40 rounded-full object-cover flex-shrink-0 ring-4 ring-sand/40" loading="lazy" />
+        <div>
+          <h3 class="font-display text-sand text-2xl font-semibold mb-3">Bob Barstow & The Barstow Family</h3>
+          <p class="font-body text-white/75 text-base leading-relaxed mb-3">Bob didn't build a business. He built a backyard — one big enough for an entire city to share. For five decades the Barstow family showed up every morning before the first visitor arrived and every evening after the last car left. That kind of devotion writes itself into a landscape.</p>
+          <p class="font-body text-white/60 text-sm italic">"It was never just a park. It was the closest thing a lot of people had to a lake house of their own." — The Barstow Family</p>
+        </div>
+      </div>
+
+      <!-- Timeline — populated by JS -->
+      <div class="relative" aria-label="Heritage timeline">
+        <div class="timeline-line" aria-hidden="true"></div>
+        <div id="timeline-container" class="space-y-12 pb-12"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Waterline divider -->
+  <div class="waterline bg-lake-deep" aria-hidden="true">
+    <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,16 C240,42 480,4 720,22 C960,40 1200,6 1440,20 L1440,48 L0,48 Z" fill="#F7F3ED"/>
+    </svg>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       THE VAULT
+  ════════════════════════════════════════════ -->
+  <section id="the-vault" class="py-20 px-4 bg-cream" aria-labelledby="vault-heading">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-14 fade-in">
+        <p class="font-hand text-stone text-2xl mb-2">On the record</p>
+        <h2 id="vault-heading" class="font-display text-lake-deep text-4xl md:text-5xl font-bold mb-4">The Vault</h2>
+        <p class="font-body text-stone text-base md:text-lg max-w-xl mx-auto">A transparent account of the legal and regulatory history that has shaped Windy Point Park's enduring presence on Lake Travis — and its path forward.</p>
+      </div>
+
+      <div id="vault-container" class="space-y-6 fade-in"></div>
+
+      <div class="mt-12 bg-lake-deep rounded-2xl p-8 text-center fade-in">
+        <p class="font-hand text-sand text-xl mb-3">The story isn't over.</p>
+        <h3 class="font-display text-white text-2xl font-bold mb-4">This land deserves a future as good as its past.</h3>
+        <p class="font-body text-white/70 text-sm mb-6 max-w-lg mx-auto">The Barstow family is seeking a qualified lessee or institutional partner to carry Windy Point Park's mission forward. Media inquiries, leasing interest, and partnership proposals are welcome.</p>
+        <a href="#contact" class="inline-block bg-sand text-bark font-body font-semibold px-8 py-3 rounded-full hover:bg-dusk hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-sand focus:ring-offset-2 focus:ring-offset-lake-deep">
+          Get in Touch →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Waterline divider -->
+  <div class="waterline bg-cream" aria-hidden="true">
+    <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,8 C300,44 600,0 900,24 C1100,40 1280,4 1440,18 L1440,48 L0,48 Z" fill="#1B3A52"/>
+    </svg>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       CONTACT / LEASE INQUIRY
+  ════════════════════════════════════════════ -->
+  <section id="contact" class="py-20 px-4 bg-lake-deep" aria-labelledby="contact-heading">
+    <div class="max-w-3xl mx-auto text-center fade-in">
+      <p class="font-hand text-sand text-2xl mb-2">Ready to write the next chapter?</p>
+      <h2 id="contact-heading" class="font-display text-white text-4xl md:text-5xl font-bold mb-6">Leasing & Media Inquiries</h2>
+      <p class="font-body text-white/70 text-base md:text-lg mb-10 max-w-xl mx-auto">Windy Point Park is available for lease. We're looking for a steward — not just a tenant. If you're a journalist, a documentary producer, a recreational operator, or a civic institution, let's talk.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+        <div class="bg-white/10 rounded-2xl p-6 border border-white/10 text-left">
+          <div class="text-3xl mb-3" aria-hidden="true">📰</div>
+          <h3 class="font-display text-sand text-xl font-semibold mb-2">Media & Press</h3>
+          <p class="font-body text-white/65 text-sm mb-4">Covering Austin's waterfront culture, local heritage, or LCRA easement policy? The Barstow family is available for interviews.</p>
+          <a href="mailto:press@windypointpark.com" class="font-body text-sand text-sm font-semibold hover:text-white transition-colors focus:outline-none focus:underline">press@windypointpark.com</a>
+        </div>
+        <div class="bg-white/10 rounded-2xl p-6 border border-white/10 text-left">
+          <div class="text-3xl mb-3" aria-hidden="true">🏕️</div>
+          <h3 class="font-display text-sand text-xl font-semibold mb-2">Leasing & Operations</h3>
+          <p class="font-body text-white/65 text-sm mb-4">Interested in operating the park as a recreational venue, dive center, or event destination? Reach the family directly.</p>
+          <a href="mailto:lease@windypointpark.com" class="font-body text-sand text-sm font-semibold hover:text-white transition-colors focus:outline-none focus:underline">lease@windypointpark.com</a>
+        </div>
+      </div>
+      <p class="font-body text-white/40 text-xs">Windy Point Park · Lake Travis, Austin, Texas · Travis County · LCRA easement property</p>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════ -->
+  <footer class="bg-bark text-white/70 py-12 px-4" role="contentinfo">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
+        <!-- Brand -->
+        <div>
+          <p class="font-display text-white text-2xl font-bold mb-3">🌊 Windy Point Park</p>
+          <p class="font-body text-sm leading-relaxed mb-4">Lake Travis, Austin, Texas<br/>Travis County · LCRA Easement<br/>Est. 1974 — The Barstow Family Legacy</p>
+          <p class="font-hand text-sand text-lg">"Like your own backyard on the lake."</p>
+        </div>
+        <!-- Quick Links -->
+        <div>
+          <h3 class="font-display text-white text-lg font-semibold mb-4">Quick Links</h3>
+          <ul class="font-body text-sm space-y-2" role="list">
+            <li><a href="#the-park" class="hover:text-sand transition-colors focus:outline-none focus:underline">The Park</a></li>
+            <li><a href="#memory-wall" class="hover:text-sand transition-colors focus:outline-none focus:underline">Memory Wall</a></li>
+            <li><a href="#our-story" class="hover:text-sand transition-colors focus:outline-none focus:underline">Our Story</a></li>
+            <li><a href="#the-vault" class="hover:text-sand transition-colors focus:outline-none focus:underline">The Vault</a></li>
+            <li><a href="#contact" class="hover:text-sand transition-colors focus:outline-none focus:underline">Lease Inquiry</a></li>
+          </ul>
+        </div>
+        <!-- Social & Contact -->
+        <div>
+          <h3 class="font-display text-white text-lg font-semibold mb-4">Connect</h3>
+          <div class="flex gap-4 mb-6">
+            <!-- Facebook -->
+            <a href="#" aria-label="Windy Point Park on Facebook" class="w-10 h-10 rounded-full bg-white/10 hover:bg-sand hover:text-bark flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-sand">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+            </a>
+            <!-- Instagram -->
+            <a href="#" aria-label="Windy Point Park on Instagram" class="w-10 h-10 rounded-full bg-white/10 hover:bg-sand hover:text-bark flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-sand">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"/></svg>
+            </a>
+            <!-- YouTube -->
+            <a href="#" aria-label="Windy Point Park on YouTube" class="w-10 h-10 rounded-full bg-white/10 hover:bg-sand hover:text-bark flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-sand">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.488 3.45.029 5.804 0 12c.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z"/></svg>
+            </a>
+          </div>
+          <p class="font-body text-xs text-white/40 mb-1">Media: <a href="mailto:press@windypointpark.com" class="text-sand hover:text-white transition-colors focus:outline-none focus:underline">press@windypointpark.com</a></p>
+          <p class="font-body text-xs text-white/40">Leasing: <a href="mailto:lease@windypointpark.com" class="text-sand hover:text-white transition-colors focus:outline-none focus:underline">lease@windypointpark.com</a></p>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-white/35 font-body">
+        <p id="footer-copy"></p>
+        <p>Operated by the Barstow Family · Lake Travis, Austin TX · Travis County · LCRA Easement Property</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       LIGHTBOX OVERLAY
+  ════════════════════════════════════════════ -->
+  <div id="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Photo gallery lightbox">
+    <div class="w-full max-w-5xl px-4">
+      <!-- Header bar -->
+      <div class="flex items-center justify-between mb-4">
+        <p id="lb-album-title" class="font-hand text-sand text-2xl"></p>
+        <button id="lb-close" class="lb-arrow text-base px-3 py-2" aria-label="Close lightbox">✕ Close</button>
+      </div>
+      <!-- Image -->
+      <div class="flex items-center justify-center gap-4">
+        <button id="lb-prev" class="lb-arrow" aria-label="Previous image">‹</button>
+        <img id="lightbox-img" src="" alt="" />
+        <button id="lb-next" class="lb-arrow" aria-label="Next image">›</button>
+      </div>
+      <!-- Caption & counter -->
+      <div class="mt-4 text-center">
+        <p id="lb-caption" class="font-body text-white/80 text-sm mb-1"></p>
+        <p id="lb-counter" class="font-hand text-sand text-lg"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       DATA & JAVASCRIPT
+       ─ Edit this object to update all site content ─
+  ════════════════════════════════════════════ -->
+  <script>
+  // ┌─────────────────────────────────────────────┐
+  // │   SITE DATA — Edit everything here safely   │
+  // └─────────────────────────────────────────────┘
+
+  const SITE_DATA = {
+
+    // ── HERO ──────────────────────────────────────
+    hero: {
+      eyebrow: "Lake Travis, Austin TX · Est. 1974",
+      headline: "Your Backyard On The Lake",
+      intro: "For fifty years, Windy Point Park has been the place Austinites come when they need the water. Not a resort. Not a rental. A real, honest-to-goodness lakeside park where scuba divers find their calling, families lay down roots for the summer, and every sunset feels personally addressed to you. Bob Barstow built something rare here — and it deserves to live on.",
+      ctas: [
+        { label: "Explore the Memory Wall", href: "#memory-wall", style: "primary" },
+        { label: "Leasing Inquiry", href: "#contact", style: "secondary" },
+        { label: "Media Contact", href: "#contact", style: "ghost" },
+      ]
+    },
+
+    // ── ACTIVITIES ────────────────────────────────
+    activities: [
+      {
+        emoji: "🤿",
+        title: "Scuba Diving",
+        description: "Lake Travis has long been one of Central Texas's premier freshwater dive destinations. Windy Point's clear waters, structured entry, and dedicated dive platforms made it the go-to site for certifications, check dives, and midnight plunges.",
+        image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80&fit=crop",
+        alt: "Scuba divers underwater in clear lake water"
+      },
+      {
+        emoji: "⛺",
+        title: "Camping",
+        description: "Fall asleep to the sound of lake water and wake up with the herons. Shaded sites, clean facilities, and that particular quiet that only exists when you're sleeping under a big Texas sky next to open water.",
+        image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80&fit=crop",
+        alt: "Camping tent near a lake at sunset"
+      },
+      {
+        emoji: "⛵",
+        title: "Boating & Swimming",
+        description: "Launch your vessel, drop anchor, cannonball in. The park's natural cove and protected swim area made it one of the safest and most beloved spots on Travis for families with kids of every age.",
+        image: "https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=600&q=80&fit=crop",
+        alt: "Boats on a calm lake on a sunny day"
+      },
+      {
+        emoji: "🧺",
+        title: "Picnicking",
+        description: "Shade trees, lake views, and a cooler full of your favorite things. Windy Point's picnic grounds have hosted more birthday parties, post-dive celebrations, and lazy Sunday afternoons than anyone bothered to count.",
+        image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80&fit=crop",
+        alt: "Picnic blanket and basket near a lake"
+      },
+      {
+        emoji: "🎪",
+        title: "Events & Gatherings",
+        description: "Corporate outings, dive club meetups, family reunions, and charity fundraisers — the park has served as the backdrop for every kind of celebration imaginable. Capacity for groups large and small.",
+        image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&q=80&fit=crop",
+        alt: "Outdoor gathering with people celebrating near a lake"
+      },
+      {
+        emoji: "🌅",
+        title: "Sunsets",
+        description: "You don't plan a Windy Point sunset — you just happen to be there. The way the light falls across the water at dusk has stopped more than a few people in their tracks and permanently changed their relationship with this place.",
+        image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80&fit=crop",
+        alt: "Spectacular golden sunset over Lake Travis"
+      },
+    ],
+
+    // ── MEMORY WALL ALBUMS ─────────────────────────
+    // Each album contains a thematic title, cover image, and an array of photos.
+    // Add more photos to any album by adding objects to its `photos` array.
+    albums: [
+      {
+        id: "camping",
+        title: "Camping & Picnicking",
+        emoji: "⛺",
+        cover: "https://images.unsplash.com/photo-1510672981848-a1c4f1cb5ccf?w=600&q=80&fit=crop",
+        coverAlt: "Campfire by a lake at night",
+        photos: [
+          { src: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=900&q=80&fit=crop", caption: "Summer mornings belonged to the campers." },
+          { src: "https://images.unsplash.com/photo-1510672981848-a1c4f1cb5ccf?w=900&q=80&fit=crop", caption: "Campfire nights under the Texas stars." },
+          { src: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=900&q=80&fit=crop", caption: "Shade and a great view — every site had both." },
+          { src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80&fit=crop", caption: "Picnic season opened in March and never really closed." },
+          { src: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=900&q=80&fit=crop", caption: "Family reunions that became annual traditions." },
+        ]
+      },
+      {
+        id: "boating",
+        title: "Boating & Swimming",
+        emoji: "⛵",
+        cover: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=600&q=80&fit=crop",
+        coverAlt: "Sailboat on a blue lake",
+        photos: [
+          { src: "https://images.unsplash.com/photo-1528154291023-a6525fabe5b4?w=900&q=80&fit=crop", caption: "The marina never slept on a holiday weekend." },
+          { src: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=900&q=80&fit=crop", caption: "Sailboats, motorboats, kayaks — all welcome." },
+          { src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=900&q=80&fit=crop", caption: "The swim area was always the loudest corner of the park." },
+          { src: "https://images.unsplash.com/photo-1530549387789-4c1017266635?w=900&q=80&fit=crop", caption: "Perfect water, every summer." },
+          { src: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=900&q=80&fit=crop", caption: "A cove made for cannonballs and lazy floats." },
+        ]
+      },
+      {
+        id: "scuba",
+        title: "Scuba Diving",
+        emoji: "🤿",
+        cover: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80&fit=crop",
+        coverAlt: "Scuba diver underwater",
+        photos: [
+          { src: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&q=80&fit=crop", caption: "Lake Travis visibility that made divers travel from across the state." },
+          { src: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=900&q=80&fit=crop", caption: "Freshwater diving unlike anywhere else in Central Texas." },
+          { src: "https://images.unsplash.com/photo-1545671913-b89ac1b4ac10?w=900&q=80&fit=crop", caption: "Certification dives, check dives, and midnight plunges." },
+          { src: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=900&q=80&fit=crop", caption: "The underwater world of Lake Travis." },
+          { src: "https://images.unsplash.com/photo-1582967788606-a171c1080cb0?w=900&q=80&fit=crop", caption: "Divers always came back for more." },
+        ]
+      },
+      {
+        id: "events",
+        title: "Events & Sunsets",
+        emoji: "🌅",
+        cover: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80&fit=crop",
+        coverAlt: "Sunset over Lake Travis",
+        photos: [
+          { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=80&fit=crop", caption: "The kind of sunset that makes you put your phone down." },
+          { src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80&fit=crop", caption: "Corporate retreats found their best ideas here." },
+          { src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=900&q=80&fit=crop", caption: "Live music nights at the water's edge." },
+          { src: "https://images.unsplash.com/photo-1543157145-f78c636d023d?w=900&q=80&fit=crop", caption: "Every event was made better by the view." },
+          { src: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=900&q=80&fit=crop", caption: "The park at golden hour — magic, every time." },
+        ]
+      },
+    ],
+
+    // ── VISITOR REVIEWS ───────────────────────────
+    reviews: [
+      {
+        name: "Sarah M.",
+        rating: 5,
+        date: "August 2022",
+        text: "Windy Point is absolutely irreplaceable. I got my Open Water cert here in 2003 and came back every summer for twenty years. The Barstow family treated every visitor like family. There is nowhere else like it in Texas.",
+      },
+      {
+        name: "David K.",
+        rating: 5,
+        date: "June 2023",
+        text: "Three generations of our family have camped here. My grandfather brought my dad, my dad brought me, and I brought my kids. Watching them see the lake for the first time from this exact spot — that's something you can't put a price on.",
+      },
+      {
+        name: "Austin Dive Club",
+        rating: 5,
+        date: "October 2021",
+        text: "The go-to freshwater dive site for our entire club. Excellent visibility, well-maintained entry points, and Bob always went out of his way to make divers feel welcome. This park shaped an entire generation of Texas divers.",
+      },
+    ],
+
+    // ── HERITAGE TIMELINE ─────────────────────────
+    timeline: [
+      {
+        year: "1974",
+        title: "A Vision Meets The Shoreline",
+        body: "Bob Barstow discovers an undeveloped stretch of Lake Travis shoreline under LCRA easement and establishes Windy Point Park. What begins as a modest recreational site quickly earns a loyal following among Austin families and weekend campers.",
+        icon: "🌱",
+        side: "left"
+      },
+      {
+        year: "1980s",
+        title: "The Dive Community Finds Its Home",
+        body: "Word spreads through Austin's scuba community that Windy Point offers some of the clearest freshwater diving in the Hill Country. Dive clubs stake their claim, and the park becomes the de facto certification site for a generation of Central Texas divers.",
+        icon: "🤿",
+        side: "right"
+      },
+      {
+        year: "1990s",
+        title: "Summer Saturdays, Fully Booked",
+        body: "The park expands its camping and picnic offerings, and weekend capacity routinely fills to the brim. The Barstow family invests in infrastructure — restrooms, shade structures, boat ramps — while preserving the wild, unpretentious character that made the place special.",
+        icon: "⛺",
+        side: "left"
+      },
+      {
+        year: "2000s",
+        title: "Generations Overlap",
+        body: "Children who first visited Windy Point in the 1970s now bring their own children. The park earns the kind of loyalty that no marketing budget can manufacture — purely by being exactly what it promised to be, every single season.",
+        icon: "👨‍👩‍👧‍👦",
+        side: "right"
+      },
+      {
+        year: "2010s",
+        title: "Events, Film, & Corporate Culture",
+        body: "The park becomes a destination for corporate retreats, outdoor film screenings, charity events, and community gatherings. Its combination of natural beauty and flexible space proves uniquely valuable in the Austin market.",
+        icon: "🎪",
+        side: "left"
+      },
+      {
+        year: "2021 – 2023",
+        title: "The Peak Years — A Renaissance",
+        highlight: true,
+        body: "Under the stewardship of the final family manager, Windy Point experiences its most dynamic period of growth. Social media discovery, a post-pandemic hunger for outdoor recreation, and an Austin population boom converge to bring record visitation. Online reviews surge. Waiting lists form on summer weekends. The park's Google presence blossoms with hundreds of five-star reviews, and a new generation of Austinites discovers what their parents and grandparents already knew.",
+        icon: "🌟",
+        side: "right"
+      },
+      {
+        year: "2024+",
+        title: "Seeking The Next Steward",
+        body: "The Barstow family, after 50 years of faithful operation, now seeks a qualified lessee to carry Windy Point Park's legacy forward. The mission is unchanged: to give Austin a real place on the lake — open, honest, and better than anything money alone could build.",
+        icon: "🔭",
+        side: "left"
+      },
+    ],
+
+    // ── THE VAULT ─────────────────────────────────
+    vault: [
+      {
+        title: "LCRA Easement & Land Classification",
+        icon: "📜",
+        summary: "Windy Point Park operates on land governed by a Lower Colorado River Authority (LCRA) easement — a form of public trust land designed to protect waterfront access for recreational use along Lake Travis. The Barstow family has operated as steward of this easement for five decades.",
+        documents: [
+          { label: "LCRA Easement Overview [Placeholder]", href: "#" },
+          { label: "Travis County Land Records [Placeholder]", href: "#" },
+        ]
+      },
+      {
+        title: "Land Use & Recreational Classification",
+        icon: "🗺️",
+        summary: "The park's zoning and use classification has been the subject of ongoing regulatory dialogue with Travis County and LCRA. The recreational easement status affords specific protections for continued public waterfront access, and any transition of operations must respect these classifications.",
+        documents: [
+          { label: "Travis County Zoning Records [Placeholder]", href: "#" },
+          { label: "Recreational Easement Protection Act Reference [Placeholder]", href: "#" },
+        ]
+      },
+      {
+        title: "Legal Engagements & Protections",
+        icon: "⚖️",
+        summary: "Over the course of its operation, Windy Point Park has navigated various legal proceedings related to land rights, access, and easement interpretation. The Barstow family has consistently acted to protect the public's right to access this waterfront — a principle they regard as foundational to the park's identity.",
+        documents: [
+          { label: "Case Summary — Easement Dispute [Placeholder]", href: "#" },
+          { label: "Correspondence with LCRA [Placeholder]", href: "#" },
+          { label: "Legal Representation Contact [Placeholder]", href: "#" },
+        ]
+      },
+      {
+        title: "Future Lease & Transition Framework",
+        icon: "🤝",
+        summary: "The Barstow family has prepared documentation for prospective lessees outlining operational requirements, LCRA compliance obligations, and the conditions under which a new operator may assume stewardship of the park. Interested parties are encouraged to make contact directly.",
+        documents: [
+          { label: "Lease Inquiry Packet [Contact to Request]", href: "#contact" },
+          { label: "Operational Requirements Overview [Placeholder]", href: "#" },
+        ]
+      },
+    ],
+
+  }; // ← END OF SITE_DATA — safe to edit above this line
+
+
+  // ═══════════════════════════════════════════════
+  // RENDER ENGINE — Do not edit below unless you
+  // know what you're doing.
+  // ═══════════════════════════════════════════════
+
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // ── Helpers ──
+    const $ = id => document.getElementById(id);
+    const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html) e.innerHTML = html; return e; };
+
+    // ── Hero ──
+    const h = SITE_DATA.hero;
+    $('hero-eyebrow').textContent = h.eyebrow;
+    $('hero-headline').textContent = h.headline;
+    $('hero-intro').textContent = h.intro;
+    const ctaWrap = $('hero-ctas');
+    h.ctas.forEach(c => {
+      const a = document.createElement('a');
+      a.href = c.href;
+      a.textContent = c.label;
+      if (c.style === 'primary') a.className = 'bg-sand text-bark font-display font-semibold px-8 py-4 rounded-full text-base hover:bg-dusk hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white';
+      else if (c.style === 'secondary') a.className = 'bg-white/15 backdrop-blur-sm border border-white/40 text-white font-display font-semibold px-8 py-4 rounded-full text-base hover:bg-white/25 transition-colors focus:outline-none focus:ring-2 focus:ring-white';
+      else a.className = 'text-white/80 font-body text-sm underline underline-offset-4 hover:text-sand transition-colors focus:outline-none focus:ring-2 focus:ring-white rounded-sm';
+      ctaWrap.appendChild(a);
+    });
+
+    // ── Activities ──
+    const grid = $('activity-grid');
+    SITE_DATA.activities.forEach(act => {
+      const card = el('article', 'activity-card bg-white rounded-2xl overflow-hidden shadow-sm border border-lake-deep/8 fade-in');
+      card.innerHTML = `
+        <div class="relative h-48 overflow-hidden">
+          <img src="${act.image}" alt="${act.alt}" class="w-full h-full object-cover" loading="lazy" />
+          <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm rounded-full w-10 h-10 flex items-center justify-center text-xl" aria-hidden="true">${act.emoji}</div>
+        </div>
+        <div class="p-5">
+          <h3 class="font-display text-lake-deep text-xl font-bold mb-2">${act.title}</h3>
+          <p class="font-body text-stone text-sm leading-relaxed">${act.description}</p>
+        </div>`;
+      grid.appendChild(card);
+    });
+
+    // ── Albums ──
+    const albumGrid = $('album-grid');
+    SITE_DATA.albums.forEach((album, idx) => {
+      const card = el('div', 'album-card bg-white rounded-2xl overflow-hidden shadow-sm border border-lake-deep/8 fade-in');
+      card.setAttribute('role', 'listitem');
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('aria-label', `Open ${album.title} photo album`);
+      card.innerHTML = `
+        <div class="relative h-48 overflow-hidden">
+          <img src="${album.cover}" alt="${album.coverAlt}" class="w-full h-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-lake-deep/80 to-transparent flex items-end p-4">
+            <div>
+              <p class="text-2xl mb-1" aria-hidden="true">${album.emoji}</p>
+              <h3 class="font-display text-white font-bold text-lg leading-tight">${album.title}</h3>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 flex items-center justify-between">
+          <span class="font-body text-stone text-sm">${album.photos.length} photos</span>
+          <span class="font-body text-lake-teal text-sm font-medium">Open Album →</span>
+        </div>`;
+      card.addEventListener('click', () => openLightbox(idx, 0));
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(idx, 0); } });
+      albumGrid.appendChild(card);
+    });
+
+    // ── Reviews ──
+    const revGrid = $('reviews-grid');
+    SITE_DATA.reviews.forEach(r => {
+      const card = el('article', 'bg-white rounded-2xl p-6 shadow-sm border border-lake-deep/8 fade-in');
+      card.innerHTML = `
+        <div class="stars text-lg mb-3" aria-label="${r.rating} out of 5 stars">${'★'.repeat(r.rating)}</div>
+        <p class="font-body text-lake-deep/80 text-sm leading-relaxed mb-4 italic">"${r.text}"</p>
+        <div class="flex items-center justify-between">
+          <span class="font-body font-semibold text-lake-deep text-sm">${r.name}</span>
+          <span class="font-body text-stone text-xs">${r.date}</span>
+        </div>`;
+      revGrid.appendChild(card);
+    });
+
+    // ── Timeline ──
+    const timelineCon = $('timeline-container');
+    SITE_DATA.timeline.forEach((item, i) => {
+      const isLeft = item.side === 'left';
+      const wrapper = el('div', `relative flex md:flex-row flex-col ${isLeft ? 'md:justify-start' : 'md:justify-end'} fade-in`);
+      const card = el('div', `md:w-5/12 ml-10 md:ml-0 ${item.highlight ? 'bg-sand/15 border-2 border-sand/50' : 'bg-white/8 border border-white/15'} rounded-2xl p-6`);
+      card.innerHTML = `
+        <div class="flex items-center gap-3 mb-3">
+          <span class="text-2xl" aria-hidden="true">${item.icon}</span>
+          <span class="font-hand text-sand text-xl font-bold">${item.year}</span>
+          ${item.highlight ? '<span class="bg-sand text-bark text-xs font-semibold px-2 py-0.5 rounded-full">Peak Years</span>' : ''}
+        </div>
+        <h3 class="font-display text-white text-lg font-bold mb-2">${item.title}</h3>
+        <p class="font-body text-white/70 text-sm leading-relaxed">${item.body}</p>`;
+
+      // Center dot
+      const dot = el('div', `absolute left-6 md:left-1/2 top-6 w-4 h-4 rounded-full border-2 border-lake-teal ${item.highlight ? 'bg-sand' : 'bg-lake-teal'} transform md:-translate-x-1/2 z-10`);
+      dot.setAttribute('aria-hidden', 'true');
+
+      wrapper.appendChild(dot);
+      wrapper.appendChild(card);
+      timelineCon.appendChild(wrapper);
+    });
+
+    // ── Vault ──
+    const vaultCon = $('vault-container');
+    SITE_DATA.vault.forEach(v => {
+      const item = el('div', 'bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-lake-deep/8 fade-in');
+      const docsHTML = v.documents.map(d =>
+        `<a href="${d.href}" class="doc-link inline-flex items-center gap-2 font-body text-sm text-lake-deep border border-lake-deep/20 rounded-lg px-3 py-2 hover:text-lake-teal hover:border-lake-teal transition-colors focus:outline-none focus:ring-2 focus:ring-lake-teal" ${d.href !== '#contact' ? 'target="_blank" rel="noopener noreferrer"' : ''}>
+          <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          ${d.label}
+        </a>`
+      ).join('');
+      item.innerHTML = `
+        <div class="flex items-start gap-4 mb-4">
+          <span class="text-3xl flex-shrink-0" aria-hidden="true">${v.icon}</span>
+          <h3 class="font-display text-lake-deep text-xl font-bold">${v.title}</h3>
+        </div>
+        <p class="font-body text-stone text-sm leading-relaxed mb-5">${v.summary}</p>
+        <div class="flex flex-wrap gap-3">${docsHTML}</div>`;
+      vaultCon.appendChild(item);
+    });
+
+    // ── Footer copyright year ──
+    $('footer-copy').textContent = `© ${new Date().getFullYear()} Windy Point Park. All rights reserved. Barstow Family Legacy.`;
+
+    // ── Lightbox ──
+    let currentAlbum = 0, currentPhoto = 0;
+    const overlay = $('lightbox-overlay');
+    const lbImg = $('lightbox-img');
+    const lbCaption = $('lb-caption');
+    const lbCounter = $('lb-counter');
+    const lbTitle = $('lb-album-title');
+
+    function openLightbox(albumIdx, photoIdx) {
+      currentAlbum = albumIdx;
+      currentPhoto = photoIdx;
+      renderLightbox();
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      $('lb-close').focus();
+    }
+
+    function closeLightbox() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function renderLightbox() {
+      const album = SITE_DATA.albums[currentAlbum];
+      const photo = album.photos[currentPhoto];
+      lbImg.src = photo.src;
+      lbImg.alt = photo.caption;
+      lbCaption.textContent = photo.caption;
+      lbCounter.textContent = `Photo ${currentPhoto + 1} of ${album.photos.length}`;
+      lbTitle.textContent = `${album.emoji} ${album.title}`;
+    }
+
+    $('lb-close').addEventListener('click', closeLightbox);
+    $('lb-prev').addEventListener('click', () => {
+      const album = SITE_DATA.albums[currentAlbum];
+      currentPhoto = (currentPhoto - 1 + album.photos.length) % album.photos.length;
+      renderLightbox();
+    });
+    $('lb-next').addEventListener('click', () => {
+      const album = SITE_DATA.albums[currentAlbum];
+      currentPhoto = (currentPhoto + 1) % album.photos.length;
+      renderLightbox();
+    });
+
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeLightbox(); });
+
+    document.addEventListener('keydown', e => {
+      if (!overlay.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') $('lb-prev').click();
+      if (e.key === 'ArrowRight') $('lb-next').click();
+    });
+
+    // ── Guestbook form ──
+    $('guestbook-form').addEventListener('submit', e => {
+      e.preventDefault();
+      $('guestbook-form').classList.add('hidden');
+      $('guestbook-thanks').classList.remove('hidden');
+    });
+
+    // ── Mobile nav toggle ──
+    const navToggle = $('nav-toggle');
+    const mobileMenu = $('mobile-menu');
+    navToggle.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('hidden');
+      navToggle.setAttribute('aria-expanded', String(!open));
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ── Sticky nav style ──
+    window.addEventListener('scroll', () => {
+      $('site-nav').classList.toggle('scrolled', window.scrollY > 80);
+    }, { passive: true });
+
+    // ── Scroll fade-in observer ──
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeEls.forEach(el => observer.observe(el));
+
+  }); // end DOMContentLoaded
+  </script>
+
+</body>
+</html>
