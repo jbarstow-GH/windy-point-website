@@ -11,3 +11,5 @@ Pushed revised index about noon on Sat, June 20 -- second deploymnent -- need to
 -- set up press@ and media@ in CloudFLare and route to windypointparklegacy@gmail.com 
 -- remove email catchall in CloudFlare to limit spam
 -- autoforward lease and media inquiries to Dad and Richard if they agree (which email for Richard)
+Made several updates to text and headings and added carousel for google reviews that can be added to by following these instructions from Claude: 
+To add more reviews later, just add more objects to the reviews array in SITE_DATA — the carousel dots and stepping will update automatically to accommodate them.
