@@ -254,10 +254,25 @@
       <!-- Album cards — populated by JS -->
       <div id="album-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16" role="list"></div>
 
-      <!-- Reviews — populated by JS -->
+      <!-- Reviews carousel — populated by JS -->
       <div class="mb-16 fade-in">
-        <h3 class="font-display text-lake-deep text-2xl font-semibold text-center mb-8">What visitors say</h3>
-        <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+        <h3 class="font-display text-lake-deep text-2xl font-semibold text-center mb-8">What our friends say</h3>
+        <!-- Carousel wrapper -->
+        <div class="relative">
+          <!-- Scroll track -->
+          <div id="reviews-track-wrap" class="overflow-hidden rounded-2xl">
+            <div id="reviews-grid" class="flex gap-5 transition-transform duration-400 ease-in-out will-change-transform"></div>
+          </div>
+          <!-- Prev / Next arrows -->
+          <button id="rev-prev" aria-label="Previous review" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 w-10 h-10 rounded-full bg-white shadow-md border border-lake-deep/10 flex items-center justify-center text-lake-deep hover:bg-lake-teal hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-lake-teal z-10">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button id="rev-next" aria-label="Next review" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 w-10 h-10 rounded-full bg-white shadow-md border border-lake-deep/10 flex items-center justify-center text-lake-deep hover:bg-lake-teal hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-lake-teal z-10">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+        <!-- Dot indicators -->
+        <div id="reviews-dots" class="flex justify-center gap-2 mt-5" aria-label="Review carousel position" role="tablist"></div>
       </div>
 
       <!-- Guestbook Form -->
@@ -507,8 +522,8 @@
     // ── HERO ──────────────────────────────────────
     hero: {
       eyebrow: "Lake Travis, Austin TX · Est. 1974",
-      headline: "Your Backyard On The Lake",
-      intro: "For fifty years, Windy Point Park has been the place Austinites come when they need the water. Not a resort. Not a rental. A real, honest-to-goodness lakeside park where scuba divers find their calling, families lay down roots for the summer, and every sunset feels personally addressed to you. Bob Barstow built something rare here — and it deserves to live on.",
+      headline: "Like Your Own Backyard on the Lake",
+      intro: "For fifty years, Windy Point Park was the place Austinites came when they needed the water. Not a resort. Not a rental. A real, honest-to-goodness, family-owned lakeside park where scuba divers found their calling, families lay down roots for the summer, and every sunset felt personally addressed to you. Bob Barstow built something rare here — and it deserves to live on.",
       ctas: [
         { label: "Explore the Memory Wall", href: "#memory-wall", style: "primary" },
         { label: "Leasing Inquiry", href: "#contact", style: "secondary" },
@@ -814,9 +829,19 @@
     });
 
     // ── Reviews ──
-    const revGrid = $('reviews-grid');
-    SITE_DATA.reviews.forEach(r => {
-      const card = el('article', 'bg-white rounded-2xl p-6 shadow-sm border border-lake-deep/8 fade-in');
+    // ── Reviews carousel ──
+    const revGrid  = $('reviews-grid');
+    const revDots  = $('reviews-dots');
+    let revIndex   = 0;
+
+    // Cards per view based on viewport
+    function revPerView() {
+      return window.innerWidth >= 1024 ? 3 : window.innerWidth >= 640 ? 2 : 1;
+    }
+
+    SITE_DATA.reviews.forEach((r, i) => {
+      const card = el('article', 'bg-white rounded-2xl p-6 shadow-sm border border-lake-deep/8 flex-shrink-0');
+      card.style.width = '100%'; // width set dynamically
       card.innerHTML = `
         <div class="stars text-lg mb-3" aria-label="${r.rating} out of 5 stars">${'★'.repeat(r.rating)}</div>
         <p class="font-body text-lake-deep/80 text-sm leading-relaxed mb-4 italic">"${r.text}"</p>
@@ -826,6 +851,63 @@
         </div>`;
       revGrid.appendChild(card);
     });
+
+    function buildDots() {
+      revDots.innerHTML = '';
+      const total  = SITE_DATA.reviews.length;
+      const perView = revPerView();
+      const steps  = Math.ceil(total / perView);
+      for (let i = 0; i < steps; i++) {
+        const dot = el('button', `w-2 h-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-lake-teal ${i === revIndex ? 'bg-lake-teal w-5' : 'bg-lake-deep/25 hover:bg-lake-deep/50'}`);
+        dot.setAttribute('aria-label', `Go to review set ${i + 1}`);
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-selected', String(i === revIndex));
+        dot.addEventListener('click', () => goToRev(i));
+        revDots.appendChild(dot);
+      }
+    }
+
+    function sizeCards() {
+      const perView = revPerView();
+      const gap     = 20; // px gap-5
+      const wrap    = $('reviews-track-wrap');
+      const total   = wrap.offsetWidth;
+      const cardW   = (total - gap * (perView - 1)) / perView;
+      Array.from(revGrid.children).forEach(c => c.style.width = cardW + 'px');
+    }
+
+    function goToRev(idx) {
+      const total   = SITE_DATA.reviews.length;
+      const perView = revPerView();
+      const maxIdx  = Math.ceil(total / perView) - 1;
+      revIndex      = Math.max(0, Math.min(idx, maxIdx));
+      const cardW   = revGrid.children[0]?.offsetWidth || 0;
+      const gap     = 20;
+      revGrid.style.transform = `translateX(-${revIndex * perView * (cardW + gap)}px)`;
+      buildDots();
+    }
+
+    $('rev-prev').addEventListener('click', () => goToRev(revIndex - 1));
+    $('rev-next').addEventListener('click', () => goToRev(revIndex + 1));
+
+    // Keyboard nav on the track
+    $('reviews-track-wrap').addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft')  goToRev(revIndex - 1);
+      if (e.key === 'ArrowRight') goToRev(revIndex + 1);
+    });
+
+    // Touch / drag swipe support
+    let revTouchStartX = 0;
+    revGrid.addEventListener('touchstart', e => { revTouchStartX = e.touches[0].clientX; }, { passive: true });
+    revGrid.addEventListener('touchend',   e => {
+      const diff = revTouchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goToRev(revIndex + (diff > 0 ? 1 : -1));
+    });
+
+    // Init + resize
+    function initRevCarousel() { sizeCards(); buildDots(); goToRev(0); }
+    initRevCarousel();
+    window.addEventListener('resize', () => { initRevCarousel(); }, { passive: true });
 
     // ── Timeline ──
     const timelineCon = $('timeline-container');
