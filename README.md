@@ -13,3 +13,7 @@ Pushed revised index about noon on Sat, June 20 -- second deploymnent -- need to
 -- autoforward lease and media inquiries to Dad and Richard if they agree (which email for Richard)
 Made several updates to text and headings and added carousel for google reviews that can be added to by following these instructions from Claude: 
 To add more reviews later, just add more objects to the reviews array in SITE_DATA — the carousel dots and stepping will update automatically to accommodate them.
+***
+Added top main splash and Bob Barstow images inline as optimized webP. Tweaked text throughout. Retained catchall to ensure maximum catch on early responders. 
+REPEAT THIS SUCCESSFUL PROCEDURE -- revise each design step in Claude and review in preview (won't display images in folders, no access) Immediately, to prevent mistakes, each time a revision is acceptable in proview, download to GitHub desktop as overwrite -- Use Command-Space to open terminal, type GitHub, select Github app and locate desired file or folder to overwrite index or add file (like images or video).
+Set up branch before committing images with links
