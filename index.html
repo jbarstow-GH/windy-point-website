@@ -157,7 +157,10 @@ background: linear-gradient(to bottom, rgba(27,58,82,0.35) 0%, rgba(27,58,82,0.1
   <!-- ═══════════════════════════════════════════
        HERO HEADER
   ════════════════════════════════════════════ -->
-  <header id="hero" class="hero-bg flex flex-col items-center justify-center text-center px-4 py-24 md:py-32" role="banner">
+<!-- 1. Opening tag updated with image background, aria-label, and relative positioning -->
+<header class="flex flex-col items-center justify-center text-center px-4 py-24 md:py-32 relative" style="background: linear-gradient(to bottom, rgba(27,58,82,0.35) 0%, rgba(27,58,82,0.15) 35%, rgba(27,58,82,0.78) 85%, rgba(27,58,82,0.88) 100%), url('images/MAIN-windy-point-park-aerial-original.webp') center/cover no-repeat;" role="banner" aria-label="Aerial view of the rocky cliffs and green trees of Windy Point Park jutting into the blue water of Lake Travis">
+    
+    <!-- 2. Your text content remains completely safe and untouched inside here -->
     <div id="main-content" class="max-w-4xl mx-auto">
       <div id="hero-eyebrow" class="inline-block text-sand font-hand text-2xl font-bold px-5 py-2 mb-6"></div>
       <h1 id="hero-headline" class="font-display text-white text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-6"></h1>
@@ -170,7 +173,13 @@ background: linear-gradient(to bottom, rgba(27,58,82,0.35) 0%, rgba(27,58,82,0.1
         <svg class="w-5 h-5 text-sand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
       </div>
     </div>
-  </header>
+
+    <!-- 3. Your new caption sits perfectly at the bottom corner -->
+        <!-- Transparent Caption: Anchored to the bottom-right corner -->
+    <span style="position: absolute; bottom: 15px; right: 15px; color: #ffffff; font-size: 11px; letter-spacing: 0.5px; background: transparent; padding: 5px 0; font-family: sans-serif; z-index: 10; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);">
+        ℹ️ Windy Point Park at full pool elevation (lake levels vary).
+    </span>
+</header>
 
   <!-- Waterline divider -->
   <div class="waterline bg-lake-deep" aria-hidden="true">
@@ -524,12 +533,10 @@ background: linear-gradient(to bottom, rgba(27,58,82,0.35) 0%, rgba(27,58,82,0.1
       eyebrow: "Lake Travis, Austin TX · Est. 1974",
       headline: "Like Your Own Backyard on the Lake",
       intro: "For fifty years, Windy Point Park was the place Austinites came when they needed the water. Not a resort. Not a rental. A real, honest-to-goodness, family-owned lakeside park where scuba divers found their calling, families lay down roots for the summer, and every sunset felt personally addressed to you. Bob Barstow built something rare here — and it deserves to live on.",
-      ctas: [
-        { label: "Explore the Memory Wall", href: "#memory-wall", style: "primary" },
-        { label: "Leasing Inquiry", href: "#contact", style: "secondary" },
-        { label: "Media Contact", href: "#contact", style: "ghost" },
-      ]
-    },
+ctas: [
+  { label: "Explore the Memory Wall", href: "#memory-wall", style: "primary" },
+  { label: "Leasing & Media Inquiries", href: "#contact", style: "primary" },
+]    },
 
     // ── ACTIVITIES ────────────────────────────────
     activities: [
