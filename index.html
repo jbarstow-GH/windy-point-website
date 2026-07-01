@@ -158,10 +158,17 @@ background: linear-gradient(to bottom, rgba(27,58,82,0.10) 0%, rgba(27,58,82,0.3
        HERO HEADER
   ════════════════════════════════════════════ -->
 <!-- 1. Opening tag updated with image background, aria-label, and relative positioning -->
-<header class="flex flex-col items-center justify-center text-center px-4 py-10 md:py-16 relative" style="background: linear-gradient(to bottom, rgba(27,58,82,0.45) 0%, rgba(27,58,82,0.35) 35%, rgba(27,58,82,0.78) 85%, rgba(27,58,82,0.88) 100%), url('images/MAIN-windy-point-park-aerial-original.webp') center/cover no-repeat;" role="banner" aria-label="Aerial view of the rocky cliffs and green trees of Windy Point Park jutting into the blue water of Lake Travis">
+<header class="flex flex-col items-center justify-center text-center px-4 py-10 md:py-16 relative overflow-hidden" role="banner" aria-label="Aerial view of Windy Point Park on Lake Travis">
+    <!-- Crossfade slideshow background -->
+    <div class="absolute inset-0 z-0" aria-hidden="true">
+      <div class="hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000" style="background-image: linear-gradient(to bottom, rgba(27,58,82,0.45) 0%, rgba(27,58,82,0.35) 35%, rgba(27,58,82,0.78) 85%, rgba(27,58,82,0.88) 100%), url('images/MAIN-windy-point-park-aerial-original.webp');"></div>
+      <div class="hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0" style="background-image: linear-gradient(to bottom, rgba(27,58,82,0.45) 0%, rgba(27,58,82,0.35) 35%, rgba(27,58,82,0.78) 85%, rgba(27,58,82,0.88) 100%), url('images/WPP-sunset-promo-no-logo.webp');"></div>
+      <div class="hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0" style="background-image: linear-gradient(to bottom, rgba(27,58,82,0.45) 0%, rgba(27,58,82,0.35) 35%, rgba(27,58,82,0.78) 85%, rgba(27,58,82,0.88) 100%), url('images/WPP-sailboat-in-sunset.webp');"></div>
+      <div class="hero-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0" style="background-image: linear-gradient(to bottom, rgba(27,58,82,0.45) 0%, rgba(27,58,82,0.35) 35%, rgba(27,58,82,0.78) 85%, rgba(27,58,82,0.88) 100%), url('images/WPP-Kristen-at-sunset-table.webp');"></div>
+    </div>
     <!-- 2. Your text content remains completely safe and untouched inside here -->
-    <div id="main-content" class="max-w-4xl mx-auto">
-<img src="images/WPP-logo-white-close-cropped-transparent.png" alt="Windy Point Park" class="w-80 sm:w-96 md:w-[500px] mx-auto -mb-6 opacity-75 drop-shadow-lg" />
+    <div id="main-content" class="max-w-4xl mx-auto relative z-10">
+<img src="images/WPP-logo-white-no-sun-transparent.png" alt="Windy Point Park" class="w-80 sm:w-96 md:w-[500px] mx-auto -mb-6 opacity-75 drop-shadow-lg" />
 <div id="hero-eyebrow" class="inline-block text-sand font-hand text-xl font-bold px-5 py-0 mb-1 -mt-12"></div>
       <h1 id="hero-headline" class="font-display text-white text-3xl sm:text-4xl md:text-5xl font-bold leading-tight mb-4"></h1>
       <p id="hero-intro" class="font-body text-white/85 text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-6"></p>
@@ -1121,6 +1128,18 @@ ctas: [
     fadeEls.forEach(el => observer.observe(el));
 
   }); // end DOMContentLoaded
+
+  // ── Hero crossfade slideshow ──
+  const slides = document.querySelectorAll('.hero-slide');
+  let currentSlide = 0;
+
+  function nextSlide() {
+    slides[currentSlide].style.opacity = '0';
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].style.opacity = '1';
+  }
+
+  setInterval(nextSlide, 8000);
   </script>
 
 </body>
