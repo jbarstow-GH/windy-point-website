@@ -1,2 +1,9 @@
 .DS_Store
 images/WPP-logo-white-no-sun-transp.textClipping
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
